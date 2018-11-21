@@ -1,7 +1,9 @@
-//createMenus();
+createMenus();
 var testt = false;
 function genericOnClick(info, tab) {
     var number_destinationid = (info.selectionText ? info.selectionText : ""); //滑鼠選起來的號碼
+    console.log(number_destinationid);
+    console.log(typeof(number_destinationid));
     number_destinationid = number_destinationid.trim();
     number_destinationid = number_destinationid.replace('(', '').replace(')', '').replace('(', '').replace(')', '').replace('-', '').replace('-', '').replace('#', ','); 
     callout(number_destinationid);
@@ -9,7 +11,7 @@ function genericOnClick(info, tab) {
 
 function createMenus() {
     var parent = browser.contextMenus.create({
-        "title": "使用分機撥打電話給browser Extension", //撥打分機給%s
+        "title": "使用分機撥打電話給%s", //撥打分機給browser Extension
         "contexts": ['all'],
         "onclick": genericOnClick
     });
@@ -57,6 +59,10 @@ function callout(destination) {
                     }, function () {
                         // Update status to let user know options were saved.
                     });
+                }, error: function(reg){
+                    $('#showtext').text("連線失敗!");
+                    console.log(JSON.stringify(reg));
+                    //return callout(destination);
                 }
             });
         } else {
@@ -67,16 +73,16 @@ function callout(destination) {
         }
     });
 };
-
+/*
 browser.runtime.onInstalled.addListener(function () {
     browser.runtime.onMessage.addListener(
         function (request, sender, sendResponse) {
-            
             console.log("The color is green.");
             console.log(sender.tab ?
                 "来自内容脚本：" + sender.tab.url :
                 "来自扩展程序");
             console.log(request.text);
+
             var text = request.text.trim().replace('-', '');
             text = text.replace('-', '');
             text = text.replace('(', '');
@@ -120,4 +126,4 @@ function localnumber(text) {
     var pattern = new RegExp(/\d{4}$/);
     //alert('hasExtension: '+text.match(pattern))
     return text.match(pattern)
-}
+}*/

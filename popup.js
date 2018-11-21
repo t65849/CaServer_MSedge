@@ -32,6 +32,7 @@ $(document).ready(function () {
                     destinationid: destinationid,
                 }, function () {
                     // Update status to let user know options were saved.
+                    checkStatus();
                 });
                 $.ajax({
                     "async": true,
@@ -61,6 +62,9 @@ $(document).ready(function () {
                             callid = reg.callid;
                             return callid;
                         }
+                    }, error: function(reg){
+                        $('#showtext').text("連線失敗!");
+                        //s$('#makecall').trigger('click');
                     }
                 });
             }
@@ -176,21 +180,17 @@ function checkStatus() {
             "cache-control": "no-cache"
         },
         success: function (reg) {
-            //alert(JSON.stringify(reg));
-            /*{
-                "success": true,
-                "status": {
-                    "status": "oncallend",
-                    "callid": "320181108879",
-                    "stationid": "6302"
-                }
-            }*/
             if (reg.success === false) {
-                if(name =='' || stationid == ''){
-                    $('#showtext').text("請檢查撥號話機和使用者帳號!");
+                if(reg.message === 'Can not find station status: '+stationid){
+                    setTimeout(function(){
+                        return checkStatus()
+                    },1000);
+                    $('#showtext').text("");
                 } else {
-                    $('#showtext').text("檢查連線中...");
                     if(secondcount<=10){
+                        secondcount++;
+                        $('#showtext').text("檢查連線中...");
+                        alert(secondcount);
                         //setTimeout(checkStatus,1000);
                         setTimeout(function(){
                             return checkStatus()
@@ -198,7 +198,6 @@ function checkStatus() {
                     }else{
                         $('#showtext').text("連線失敗!");
                     }
-                    //return checkStatus();
                 }
             } else {
                 var callstatus = reg.status.status;
@@ -239,6 +238,21 @@ function checkStatus() {
                     //do
                 }
             }
+        }, error: function(reg){
+            if(name =='' || stationid == '' || caserverurl == ''){
+                //$('#showtext').text("請檢查撥號話機和使用者帳號!");
+            }else{
+                $('#showtext').text("連線失敗!");
+                return checkStatus();
+            }
         }
     });
 };
+
+$(document).ready(function () {
+    $('#dataoption').click(function () {
+        browser.tabs.create({
+            url: browser.extension.getURL('options.html')
+        });
+    })
+})

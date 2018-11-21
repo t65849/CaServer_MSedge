@@ -1,0 +1,63 @@
+{
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "manifest_version": 2,
+    "name": "My App",
+    "version": "0.1",
+    "description": "A plain text description",
+    "icons": {
+        "16": "images/get_started16.png",
+        "32": "images/get_started32.png",
+        "48": "images/get_started48.png",
+        "128": "images/images.png"
+    },
+    "page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/get_started16.png",
+            "32": "images/get_started32.png",
+            "48": "images/get_started48.png",
+            "128": "images/images.png"
+        }
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "Press Ctrl(Win)/Command(Mac)+Shift+Right/Left to flip tabs"
+    },
+    "options_page": "options.html",
+    "permissions": ["contextMenus", "activeTab", "storage", "declarativeContent"],
+    "omnibox": {
+        "keyword": "nt"
+    },
+    "default_icon": {
+        "16": "images/get_started16.png",
+        "32": "images/get_started32.png"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+F",
+                "mac": "MacCtrl+Shift+F"
+            },
+            "description": "Opens hello.html"
+        },
+        "flip-tabs-forward": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Right",
+                "mac": "Command+Shift+Right"
+            },
+            "description": "Flip tabs forward"
+        },
+        "flip-tabs-backwards": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Left",
+                "mac": "Command+Shift+Left"
+            },
+            "description": "Flip tabs backwards"
+        }
+    }
+
+}
