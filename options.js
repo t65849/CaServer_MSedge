@@ -16,6 +16,7 @@ function save_options() {
         }, function() {
             // Update status to let user know options were saved.
             alert('已儲存成功');
+            window.open('','_self','');window.close();
             /*var status = document.getElementById('status');
             status.textContent = '已儲存';
             setTimeout(function() {

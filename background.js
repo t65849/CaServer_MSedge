@@ -1,7 +1,8 @@
-createMenus();
+
 var testt = false;
+var text = '';
 function genericOnClick(info, tab) {
-    var number_destinationid = (info.selectionText ? info.selectionText : ""); //滑鼠選起來的號碼
+    var number_destinationid = text; //滑鼠選起來的號碼
     console.log(number_destinationid);
     console.log(typeof(number_destinationid));
     number_destinationid = number_destinationid.trim();
@@ -11,7 +12,7 @@ function genericOnClick(info, tab) {
 
 function createMenus() {
     var parent = browser.contextMenus.create({
-        "title": "使用分機撥打電話給%s", //撥打分機給browser Extension
+        "title": "使用分機撥打電話給"+text, //撥打分機給browser Extension
         "contexts": ['all'],
         "onclick": genericOnClick
     });
@@ -73,7 +74,7 @@ function callout(destination) {
         }
     });
 };
-/*
+
 browser.runtime.onInstalled.addListener(function () {
     browser.runtime.onMessage.addListener(
         function (request, sender, sendResponse) {
@@ -83,7 +84,7 @@ browser.runtime.onInstalled.addListener(function () {
                 "来自扩展程序");
             console.log(request.text);
 
-            var text = request.text.trim().replace('-', '');
+            text = request.text.trim().replace('-', '');
             text = text.replace('-', '');
             text = text.replace('(', '');
             text = text.replace(')', '');
@@ -126,4 +127,4 @@ function localnumber(text) {
     var pattern = new RegExp(/\d{4}$/);
     //alert('hasExtension: '+text.match(pattern))
     return text.match(pattern)
-}*/
+}

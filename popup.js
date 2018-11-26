@@ -21,7 +21,7 @@ browser.storage.local.get({
 $(document).ready(function () {
     $('#makecall').click(function () { //撥出電話
         if ($('#destinationid').val() != '') {
-            if (name === '' || stationid === '') {
+            if (name === '' || stationid === '' || caserverurl ==='') {
                 alert('你未設定撥號話機，請設定撥號話機');
                 browser.tabs.create({
                     url: browser.extension.getURL('options.html')
@@ -190,7 +190,6 @@ function checkStatus() {
                     if(secondcount<=10){
                         secondcount++;
                         $('#showtext').text("檢查連線中...");
-                        alert(secondcount);
                         //setTimeout(checkStatus,1000);
                         setTimeout(function(){
                             return checkStatus()
