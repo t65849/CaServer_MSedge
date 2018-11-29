@@ -83,7 +83,11 @@ browser.runtime.onInstalled.addListener(function () {
                 "来自内容脚本：" + sender.tab.url :
                 "来自扩展程序");
             console.log(request.text);
-
+            if (request.noset == 'noset') {
+                browser.tabs.create({
+                    url: browser.extension.getURL('options.html')
+                });
+            }
             text = request.text.trim().replace('-', '');
             text = text.replace('-', '');
             text = text.replace('(', '');
