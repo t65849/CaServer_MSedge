@@ -3,8 +3,6 @@ var testt = false;
 var text = '';
 function genericOnClick(info, tab) {
     var number_destinationid = text; //滑鼠選起來的號碼
-    console.log(number_destinationid);
-    console.log(typeof(number_destinationid));
     number_destinationid = number_destinationid.trim();
     number_destinationid = number_destinationid.replace('(', '').replace(')', '').replace('(', '').replace(')', '').replace('-', '').replace('-', '').replace('#', ','); 
     callout(number_destinationid);
@@ -25,7 +23,8 @@ function callout(destination) {
         stationid: '',
         destinationid: '',
         name: '',
-        caserverurl: ''
+        caserverurl: '',
+        token: ''
     }, function (items) {
         console.log(items.stationid);
         console.log(items.destinationid);
@@ -34,12 +33,13 @@ function callout(destination) {
         var destinationid = destination;
         var name = items.name;
         var caserverurl = items.caserverurl;
+        var Mytoken = items.token;
         if (stationid !== '' && name !== '' && caserverurl !== '') {
             $.ajax({
                 url: caserverurl + '/makecall', //https://tstiticctcstest.herokuapp.com/phone
                 headers: {
                     'accept': 'application/json',
-                    'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJkZW1vIiwiaWF0IjoxNTQzMjAzNDg4LCJleHAiOjE1NDU3OTU0ODh9.IBfRibqo1heFBT93Vz-mFIMlEBvycwpML4rBnC3k8rg',
+                    'x-access-token': Mytoken,
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': "*",
                     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
