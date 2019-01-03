@@ -1,16 +1,16 @@
-
 var testt = false;
 var text = '';
+
 function genericOnClick(info, tab) {
     var number_destinationid = text; //滑鼠選起來的號碼
     number_destinationid = number_destinationid.trim();
-    number_destinationid = number_destinationid.replace('(', '').replace(')', '').replace('(', '').replace(')', '').replace('-', '').replace('-', '').replace('#', ','); 
+    number_destinationid = number_destinationid.replace('(', '').replace(')', '').replace('(', '').replace(')', '').replace('-', '').replace('-', '').replace('#', ',');
     callout(number_destinationid);
 }
 
 function createMenus() {
     var parent = browser.contextMenus.create({
-        "title": "使用分機撥打電話給"+text, //撥打分機給browser Extension
+        "title": "使用分機撥打電話給" + text, //撥打分機給browser Extension
         "contexts": ['all'],
         "onclick": genericOnClick
     });
@@ -60,7 +60,8 @@ function callout(destination) {
                     }, function () {
                         // Update status to let user know options were saved.
                     });
-                }, error: function(reg){
+                },
+                error: function (reg) {
                     $('#showtext').text("連線失敗!");
                     console.log(JSON.stringify(reg));
                     //return callout(destination);
@@ -95,7 +96,7 @@ browser.runtime.onInstalled.addListener(function () {
             text = text.replace('#', ',');
             if (isMobile(text) || isTel(text) || hasExtension(text) || localnumber(text)) {
                 //createMenus();
-                if(testt == false){
+                if (testt == false) {
                     createMenus();
                     testt = true;
                 }
@@ -103,9 +104,9 @@ browser.runtime.onInstalled.addListener(function () {
                 browser.contextMenus.removeAll(function () {
                     testt = false
                 });
-                sendResponse({
-                    farewell: "已收到"
-                });
+            sendResponse({
+                farewell: "已收到"
+            });
         });
 });
 
